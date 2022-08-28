@@ -5,6 +5,7 @@ function Player:init(x, y, width, height)
 	self.y = y
 	self.width = width
 	self.height = height
+	self.tween = 0
 end
 
 function Player:update(dt)
@@ -39,9 +40,12 @@ function Player:update(dt)
 	if self.y > VIRTUAL_HEIGHT - self.height then
 		self.y = VIRTUAL_HEIGHT - self.height
 	end
+
+	self.tween = self.x / (VIRTUAL_WIDTH - self.width)
 end
 
 function Player:render()
 	love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
 	love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+	love.graphics.print('tween: ' .. tostring(self.tween), 10, 300)
 end

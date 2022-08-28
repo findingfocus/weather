@@ -6,6 +6,9 @@ end
 
 function PlayState:update(dt)
 	player:update(dt)
+	sounds['beep']:setLooping(true)
+	sounds['beep']:setVolume(player.tween)
+	sounds['beep']:play()
 end
 
 
