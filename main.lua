@@ -51,9 +51,6 @@ function love.keyboard.wasPressed(key)
 end
 
 
-
-
-
 function love.update(dt)
 
 	gStateMachine:update(dt)
