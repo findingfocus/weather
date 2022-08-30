@@ -6,9 +6,18 @@ function Player:init(x, y, width, height)
 	self.width = width
 	self.height = height
 	self.tween = 0
+	self.mountain = Biome('mountain', x, y, marker)
+	--self.biomes = {Biome('mountain', x, y, marker), Biome('forest', x, y, marker)}
 end
 
 function Player:update(dt)
+--[[
+	for biome, biomes in pairs(self.biomes) do
+	 	 = biomes:getTweenValue('mountain')
+
+	end
+--]]
+
 	if love.keyboard.isDown('left') then
 		self.x = self.x - PLAYER_SPEED
 	end
@@ -33,6 +42,7 @@ function Player:update(dt)
 		self.y = self.y + PLAYER_SPEED
 	end
 
+	--CLAMPING PLAYER TO SCREEN BOUNDARIES
 	if self.y < 0 then
 		self.y = 0
 	end
@@ -41,6 +51,7 @@ function Player:update(dt)
 		self.y = VIRTUAL_HEIGHT - self.height
 	end
 
+	--TEST TWEEN VALUES FOR LEFT AND RIGHT
 	self.tween = self.x / (VIRTUAL_WIDTH - self.width)
 end
 
