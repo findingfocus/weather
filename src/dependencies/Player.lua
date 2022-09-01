@@ -3,11 +3,25 @@ Player = Class{}
 function Player:init(x, y, width, height)
 	self.x = x
 	self.y = y
+	self.cX = 0
+	self.cY = 0
+	self.aLength = 0
+	self.bLength = 0
+	self.cLength = 0
 	self.width = width
 	self.height = height
 	self.tween = 0
-	self.mountain = Biome('mountain', x, y, marker)
+	--self.mountain = Biome('mountain', x, y, marker)
 	--self.biomes = {Biome('mountain', x, y, marker), Biome('forest', x, y, marker)}
+end
+
+function Player:GetHypotLength(biome)
+	self.cX = biome.biomeX
+	self.cY = self.y
+	self.aLength = math.abs(self.cX - self.x)
+	self.bLength = math.abs(self.cY - mountainBiome.biomeY)
+	----use pythag
+	self.cLength = math.floor(math.sqrt((self.aLength^2) + (self.bLength^2)))
 end
 
 function Player:update(dt)
@@ -52,11 +66,15 @@ function Player:update(dt)
 	end
 
 	--TEST TWEEN VALUES FOR LEFT AND RIGHT
-	self.tween = self.x / (VIRTUAL_WIDTH - self.width)
+	if self.cLength > mountainBiome.cLength then
+		self.tween = 0
+	else
+		self.tween = 1 - self.cLength / mountainBiome.cLength
+	end
 end
 
 function Player:render()
 	love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
 	love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
-	love.graphics.print('tween: ' .. tostring(self.tween), 10, 300)
+	love.graphics.print('tween: ' .. tostring(self.tween), 10, 350)
 end
