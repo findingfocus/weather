@@ -5,6 +5,9 @@ function Biome:init(name, biomeX, biomeY, markerX, markerY)
 	self.aLength = 0
 	self.bLength = 0
 	self.cLength = 0
+	self.playerALength = 0
+	self.playerBLength = 0
+	self.playerCLength = 0
 	self.biomeX = biomeX
 	self.biomeY = biomeY
 	self.cX = 0

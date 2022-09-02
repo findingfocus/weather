@@ -3,15 +3,27 @@ PlayState = Class{__includes = BaseState}
 function PlayState:init()
 	player = Player(0, VIRTUAL_HEIGHT - GROUND_HEIGHT, 40, 40)
 	mountainBiome = Biome('mountain', 450, 100, 240, VIRTUAL_HEIGHT - GROUND_HEIGHT)
+	forestBiome = Biome('forest', 600, VIRTUAL_HEIGHT - GROUND_HEIGHT, 100, VIRTUAL_HEIGHT - GROUND_HEIGHT)
+	valleyBiome = Biome('valley', 1000, 300, 800, VIRTUAL_HEIGHT - GROUND_HEIGHT)
 end
 
 function PlayState:update(dt)
 	player:update(dt)
 	mountainBiome:GetHypotLength()
+	forestBiome:GetHypotLength()
+	valleyBiome:GetHypotLength()
 	player:GetHypotLength(mountainBiome)
-	sounds['beep']:setLooping(true)
-	sounds['beep']:setVolume(player.tween)
-	sounds['beep']:play()
+	player:GetHypotLength(forestBiome)
+	player:GetHypotLength(valleyBiome)
+	sounds['mountain']:setLooping(true)
+	sounds['mountain']:setVolume(player.mountainTween)
+	sounds['mountain']:play()
+	sounds['birds']:setLooping(true)
+	sounds['birds']:setVolume(player.valleyTween)
+	sounds['birds']:play()
+	sounds['thunder']:setLooping(true)
+	sounds['thunder']:setVolume(player.thunderTween)
+	sounds['thunder']:play()
 end
 
 
@@ -27,5 +39,7 @@ function PlayState:render()
 	love.graphics.printf('WEATHER', VIRTUAL_WIDTH / 2, 200, VIRTUAL_HEIGHT / 2, 'center')
 	player:render()
 	mountainBiome:render()
+	forestBiome:render()
+	valleyBiome:render()
 end 
 

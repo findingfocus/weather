@@ -10,7 +10,9 @@ function Player:init(x, y, width, height)
 	self.cLength = 0
 	self.width = width
 	self.height = height
-	self.tween = 0
+	self.mountainTween = 0
+	self.valleyTween = 0
+	self.thunderTween = 0
 	--self.mountain = Biome('mountain', x, y, marker)
 	--self.biomes = {Biome('mountain', x, y, marker), Biome('forest', x, y, marker)}
 end
@@ -18,10 +20,10 @@ end
 function Player:GetHypotLength(biome)
 	self.cX = biome.biomeX
 	self.cY = self.y
-	self.aLength = math.abs(self.cX - self.x)
-	self.bLength = math.abs(self.cY - mountainBiome.biomeY)
+	biome.playerALength = math.abs(self.cX - self.x)
+	biome.playerBLength = math.abs(self.cY - biome.biomeY)
 	----use pythag
-	self.cLength = math.floor(math.sqrt((self.aLength^2) + (self.bLength^2)))
+	biome.playerCLength = math.floor(math.sqrt((biome.playerALength^2) + (biome.playerBLength^2)))
 end
 
 function Player:update(dt)
@@ -66,15 +68,28 @@ function Player:update(dt)
 	end
 
 	--TEST TWEEN VALUES FOR LEFT AND RIGHT
-	if self.cLength > mountainBiome.cLength then
-		self.tween = 0
+	if mountainBiome.playerCLength > mountainBiome.cLength then
+		self.mountainTween = 0
 	else
-		self.tween = 1 - self.cLength / mountainBiome.cLength
+		self.mountainTween = 1 - mountainBiome.playerCLength / mountainBiome.cLength
+	end
+
+	if valleyBiome.playerCLength > valleyBiome.cLength then
+		self.valleyTween = 0
+	else
+		self.valleyTween = 1 - valleyBiome.playerCLength / valleyBiome.cLength
+	end
+
+	if forestBiome.playerCLength > forestBiome.cLength then
+		self.thunderTween = 0
+	else
+		self.thunderTween = 1 - forestBiome.playerCLength / forestBiome.cLength
 	end
 end
 
 function Player:render()
 	love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
 	love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
-	love.graphics.print('tween: ' .. tostring(self.tween), 10, 350)
+	love.graphics.print('tween: ' .. tostring(self.mountainTween), 10, 350)
+	love.graphics.print('cLength: ' .. tostring(mountainBiome.playerCLength), 10, 400)
 end

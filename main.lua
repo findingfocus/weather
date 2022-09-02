@@ -10,7 +10,10 @@ function love.load()
 
 	sounds = {
 		['beep'] = love.audio.newSource('/src/music/beep.wav', 'static'),
-		['select'] = love.audio.newSource('/src/music/select.wav', 'static')
+		['select'] = love.audio.newSource('/src/music/select.wav', 'static'),
+		['birds'] = love.audio.newSource('/src/music/birds.mp3', 'static'),
+		['mountain'] = love.audio.newSource('/src/music/mountain.mp3', 'static'),
+		['thunder'] = love.audio.newSource('/src/music/thunder.mp3', 'static')
 	}
 --]]
 	push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
