@@ -13,8 +13,8 @@ function Player:init(x, y, width, height)
 	self.mountainTween = 0
 	self.valleyTween = 0
 	self.thunderTween = 0
-	--self.mountain = Biome('mountain', x, y, marker)
-	--self.biomes = {Biome('mountain', x, y, marker), Biome('forest', x, y, marker)}
+	self.flapped = false
+	self.birdSwap = 4
 end
 
 function Player:GetHypotLength(biome)
@@ -27,12 +27,13 @@ function Player:GetHypotLength(biome)
 end
 
 function Player:update(dt)
---[[
-	for biome, biomes in pairs(self.biomes) do
-	 	 = biomes:getTweenValue('mountain')
 
+	self.birdSwap = self.birdSwap - 1
+
+	if self.birdSwap < 0 then
+		self.flapped = (not self.flapped)
+		self.birdSwap = 4
 	end
---]]
 
 	if love.keyboard.isDown('left') then
 		self.x = self.x - PLAYER_SPEED
@@ -88,8 +89,10 @@ function Player:update(dt)
 end
 
 function Player:render()
-	love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
-	love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
-	love.graphics.print('tween: ' .. tostring(self.mountainTween), 10, 350)
-	love.graphics.print('cLength: ' .. tostring(mountainBiome.playerCLength), 10, 400)
+	love.graphics.setColor(255/255, 255/255, 255/255, 100/255)
+	if self.flapped then
+		love.graphics.draw(bird2, self.x, self.y)
+	else
+		love.graphics.draw(bird1, self.x, self.y)
+	end
 end

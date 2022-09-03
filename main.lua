@@ -5,6 +5,10 @@ function love.load()
 
 	love.window.setTitle('Weather')
 
+	bird1 = love.graphics.newImage('/src/pics/bird1.png')
+	bird2 = love.graphics.newImage('/src/pics/bird2.png')
+	BG = love.graphics.newImage('/src/pics/BG.png')
+
 	pixelFont = love.graphics.newFont('/src/fonts/Pixel.ttf', 40)
 	love.graphics.setFont(pixelFont)
 
@@ -15,7 +19,7 @@ function love.load()
 		['mountain'] = love.audio.newSource('/src/music/mountain.mp3', 'static'),
 		['thunder'] = love.audio.newSource('/src/music/thunder.mp3', 'static')
 	}
---]]
+
 	push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
 		vsync = true,
 		fullscreen = true,
@@ -28,7 +32,7 @@ function love.load()
 	}
 
 	gStateMachine:change('playState')
-
+	love.mouse.setVisible(false)
 	love.keyboard.keysPressed = {}
 
 end
@@ -68,7 +72,7 @@ function love.draw()
 
 	gStateMachine:render()
 
-	displayFPS()
+	--displayFPS()
 
 	push:finish()
 end
