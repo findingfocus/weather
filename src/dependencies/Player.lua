@@ -89,7 +89,7 @@ function Player:update(dt)
 end
 
 function Player:render()
-	love.graphics.setColor(255/255, 255/255, 255/255, 100/255)
+	love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
 	if self.flapped then
 		love.graphics.draw(bird2, self.x, self.y)
 	else
