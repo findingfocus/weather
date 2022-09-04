@@ -6,7 +6,7 @@ require '/src/dependencies/constants'
 require '/src/dependencies/StateMachine'
 require '/src/dependencies/BaseState'
 
-require '/src/dependencies/Biome'
-require '/src/dependencies/Player'
+require '/src/Biome'
+require '/src/Player'
 
-require 'PlayState'
+require '/src/PlayState'
