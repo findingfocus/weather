@@ -38,7 +38,7 @@ function Biome:render()
 	love.graphics.setColor(96/255, 149/255, 247/255, 255/255)
 	love.graphics.rectangle('fill', self.biomeX, self.biomeY, self.width, self.height)
 
-	--Renders BiomeMarker
+	--Renders Biome Marker
 	love.graphics.setColor(255/255, 60/255, 60/255, 255/255)
 	love.graphics.rectangle('fill', self.markerX, self.markerY, self.width, self.height)
 	--]]

@@ -5,6 +5,7 @@ function PlayState:init()
 	mountainBiome = Biome('mountain', 530, 80, 300, VIRTUAL_HEIGHT - GROUND_HEIGHT - 120)
 	forestBiome = Biome('forest', 600, VIRTUAL_HEIGHT - GROUND_HEIGHT, 100, VIRTUAL_HEIGHT - GROUND_HEIGHT)
 	valleyBiome = Biome('valley', 1000, 300, 800, VIRTUAL_HEIGHT - GROUND_HEIGHT)
+	R2D2Biome = Biome('R2D2', 835, 240, 820, 255)
 	titleRED = 255
 	titleGREEN = 100
 	titleBLUE = 255
@@ -21,11 +22,12 @@ function PlayState:init()
 end
 
 function PlayState:update(dt)
+
+	--RAIN ANIMATION
 	rainTimer = rainTimer - .3
 	if rainTimer < 0 then
 		rainTimer = 3
 	end
-
 	if rainTimer > 2 and rainTimer <=3 then
 		rainImage = rain1
 	elseif rainTimer > 1 and rainTimer <=2 then
@@ -34,11 +36,11 @@ function PlayState:update(dt)
 		rainImage = rain3
 	end
 
+	--WIND ANIMATION
 	windTimer = windTimer - .25
 	if windTimer < 0 then
 		windTimer = 4
 	end
-
 	if windTimer > 3 and windTimer <= 4 then
 		windImage = wind1
 	elseif windTimer > 2 and windTimer <=3 then
@@ -49,14 +51,15 @@ function PlayState:update(dt)
 		windImage = wind4
 	end
 
-
 	player:update(dt)
 	mountainBiome:GetHypotLength()
 	forestBiome:GetHypotLength()
 	valleyBiome:GetHypotLength()
+	R2D2Biome:GetHypotLength()
 	player:GetHypotLength(mountainBiome)
 	player:GetHypotLength(forestBiome)
 	player:GetHypotLength(valleyBiome)
+	player:GetHypotLength(R2D2Biome)
 	sounds['mountain']:setLooping(true)
 	sounds['mountain']:setVolume(player.mountainTween)
 	sounds['mountain']:play()
@@ -66,6 +69,9 @@ function PlayState:update(dt)
 	sounds['thunder']:setLooping(true)
 	sounds['thunder']:setVolume(player.thunderTween)
 	sounds['thunder']:play()
+	sounds['R2D2']:setLooping(true)
+	sounds['R2D2']:setVolume(player.R2D2Tween)
+	sounds['R2D2']:play()
 
 	if redDESCENDING then
 		titleRED = titleRED - 1 / scale1
@@ -110,16 +116,15 @@ function PlayState:update(dt)
 	end
 end
 
-
 function PlayState:render()
 	love.graphics.clear(150/255, 150/255, 150/255, 255/255)
 	love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
 	love.graphics.draw(BG, 0, 0, 0, .68, .68)
 	love.graphics.setColor(titleRED/255, titleGREEN/255, titleBLUE/255, 255/255)
 	love.graphics.print('WEATHER', VIRTUAL_WIDTH / 3 + 540, 150)
-	mountainBiome:render()
-	forestBiome:render()
-	valleyBiome:render()
+	--mountainBiome:render()
+	--forestBiome:render()
+	--valleyBiome:render()
 	player:render()
 
 	love.graphics.setColor(255/255, 255/255, 255/255, player.windTween/255)

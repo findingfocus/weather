@@ -16,6 +16,7 @@ function Player:init(x, y, width, height)
 	self.flareTween = 0
 	self.windTween = 0
 	self.rainTween = 0
+	self.R2D2Tween = 0
 	self.flapped = false
 	self.birdSwap = 4
 end
@@ -31,6 +32,7 @@ end
 
 function Player:update(dt)
 
+	--BIRD ANIMATION
 	self.birdSwap = self.birdSwap - 1
 
 	if self.birdSwap < 0 then
@@ -38,6 +40,7 @@ function Player:update(dt)
 		self.birdSwap = 4
 	end
 
+	--INPUT HANDLING
 	if love.keyboard.isDown('left') then
 		self.x = self.x - PLAYER_SPEED
 	end
@@ -71,7 +74,7 @@ function Player:update(dt)
 		self.y = VIRTUAL_HEIGHT - self.height
 	end
 
-	--TEST TWEEN VALUES FOR LEFT AND RIGHT
+	--TWEEN VALUES
 	if mountainBiome.playerCLength > mountainBiome.cLength then
 		self.mountainTween = 0
 		self.windTween = 0
@@ -93,7 +96,13 @@ function Player:update(dt)
 		self.rainTween = 0
 	else
 		self.thunderTween = 1 - forestBiome.playerCLength / forestBiome.cLength
-		self.rainTween = 100 * (1 - forestBiome.playerCLength / forestBiome.cLength)
+		self.rainTween = 130 * (1 - forestBiome.playerCLength / forestBiome.cLength)
+	end
+
+	if R2D2Biome.playerCLength > R2D2Biome.cLength then
+		self.R2D2Tween = 0
+	elseif R2D2Biome.playerCLength < R2D2Biome.cLength then
+		self.R2D2Tween = 1 - R2D2Biome.playerCLength / R2D2Biome.cLength
 	end
 end
 
