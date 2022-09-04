@@ -13,6 +13,9 @@ function Player:init(x, y, width, height)
 	self.mountainTween = 0
 	self.valleyTween = 0
 	self.thunderTween = 0
+	self.flareTween = 0
+	self.windTween = 0
+	self.rainTween = 0
 	self.flapped = false
 	self.birdSwap = 4
 end
@@ -71,20 +74,26 @@ function Player:update(dt)
 	--TEST TWEEN VALUES FOR LEFT AND RIGHT
 	if mountainBiome.playerCLength > mountainBiome.cLength then
 		self.mountainTween = 0
+		self.windTween = 0
 	else
 		self.mountainTween = 1 - mountainBiome.playerCLength / mountainBiome.cLength
+		self.windTween = 80 * (1 - mountainBiome.playerCLength / mountainBiome.cLength)
 	end
 
 	if valleyBiome.playerCLength > valleyBiome.cLength then
 		self.valleyTween = 0
+		self.flareTween = 0
 	else
 		self.valleyTween = 1 - valleyBiome.playerCLength / valleyBiome.cLength
+		self.flareTween = 255 * (1 - valleyBiome.playerCLength / valleyBiome.cLength)
 	end
 
 	if forestBiome.playerCLength > forestBiome.cLength then
 		self.thunderTween = 0
+		self.rainTween = 0
 	else
 		self.thunderTween = 1 - forestBiome.playerCLength / forestBiome.cLength
+		self.rainTween = 100 * (1 - forestBiome.playerCLength / forestBiome.cLength)
 	end
 end
 

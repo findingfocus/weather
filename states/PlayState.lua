@@ -2,7 +2,7 @@ PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
 	player = Player(0, 0, 40, 40)
-	mountainBiome = Biome('mountain', 450, 100, 240, VIRTUAL_HEIGHT - GROUND_HEIGHT)
+	mountainBiome = Biome('mountain', 530, 80, 300, VIRTUAL_HEIGHT - GROUND_HEIGHT - 120)
 	forestBiome = Biome('forest', 600, VIRTUAL_HEIGHT - GROUND_HEIGHT, 100, VIRTUAL_HEIGHT - GROUND_HEIGHT)
 	valleyBiome = Biome('valley', 1000, 300, 800, VIRTUAL_HEIGHT - GROUND_HEIGHT)
 	titleRED = 255
@@ -14,9 +14,42 @@ function PlayState:init()
 	scale1 = 4
 	scale2 = 3
 	scale3 = 2
+	rainTimer = 3
+	rainImage = rain1
+	windTimer = 4
+	windImage = wind1
 end
 
 function PlayState:update(dt)
+	rainTimer = rainTimer - .3
+	if rainTimer < 0 then
+		rainTimer = 3
+	end
+
+	if rainTimer > 2 and rainTimer <=3 then
+		rainImage = rain1
+	elseif rainTimer > 1 and rainTimer <=2 then
+		rainImage = rain2
+	elseif rainTimer <= 1 then
+		rainImage = rain3
+	end
+
+	windTimer = windTimer - .25
+	if windTimer < 0 then
+		windTimer = 4
+	end
+
+	if windTimer > 3 and windTimer <= 4 then
+		windImage = wind1
+	elseif windTimer > 2 and windTimer <=3 then
+		windImage = wind2
+	elseif windTimer > 1 and windTimer <=2 then
+		windImage = wind3
+	elseif windTimer <= 1 then
+		windImage = wind4
+	end
+
+
 	player:update(dt)
 	mountainBiome:GetHypotLength()
 	forestBiome:GetHypotLength()
@@ -36,8 +69,8 @@ function PlayState:update(dt)
 
 	if redDESCENDING then
 		titleRED = titleRED - 1 / scale1
-		if titleRED < 80 then
-			titleRED = 80
+		if titleRED < 150 then
+			titleRED = 150
 			redDESCENDING = false
 		end
 	else
@@ -50,8 +83,8 @@ function PlayState:update(dt)
 
 		if greenDESCENDING then
 		titleGREEN = titleGREEN - 1 / scale2
-		if titleGREEN < 80 then
-			titleGREEN = 80
+		if titleGREEN < 150 then
+			titleGREEN = 150
 			greenDESCENDING = false
 		end
 	else
@@ -64,8 +97,8 @@ function PlayState:update(dt)
 
 		if blueDESCENDING then
 		titleBLUE = titleBLUE - 1 / scale3
-		if titleBLUE < 80 then
-			titleBLUE = 80
+		if titleBLUE < 150 then
+			titleBLUE = 150
 			blueDESCENDING = false
 		end
 	else
@@ -88,5 +121,14 @@ function PlayState:render()
 	forestBiome:render()
 	valleyBiome:render()
 	player:render()
+
+	love.graphics.setColor(255/255, 255/255, 255/255, player.windTween/255)
+	love.graphics.draw(windImage, 0, 0)
+
+	love.graphics.setColor(255/255, 255/255, 255/255, player.rainTween/255)
+	love.graphics.draw(rainImage, 0, 0)
+
+	love.graphics.setColor(255/255, 255/255, 255/255, player.flareTween/255)
+	love.graphics.draw(flare, 0, 0)
 end 
 

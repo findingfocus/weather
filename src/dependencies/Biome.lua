@@ -33,11 +33,13 @@ function Biome:update(dt)
 end
 
 function Biome:render()
+	--[[
 	--Renders Biome Placement
 	love.graphics.setColor(96/255, 149/255, 247/255, 255/255)
-	--love.graphics.rectangle('fill', self.biomeX, self.biomeY, self.width, self.height)
+	love.graphics.rectangle('fill', self.biomeX, self.biomeY, self.width, self.height)
 
 	--Renders BiomeMarker
 	love.graphics.setColor(255/255, 60/255, 60/255, 255/255)
-	--love.graphics.rectangle('fill', self.markerX, self.markerY, self.width, self.height)
+	love.graphics.rectangle('fill', self.markerX, self.markerY, self.width, self.height)
+	--]]
 end
