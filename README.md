@@ -14,7 +14,7 @@ Use the arrow keys to explore your surroundings!
 4.    Drag and drop the repo folder onto the LÖVE application to begin playing!
 <br>
 <br>
----
+
 ### Installation On Terminal
 ```
 git clone https://github.com/findingfocus/weather.git
