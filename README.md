@@ -13,7 +13,6 @@ Use the arrow keys to explore your surroundings!
 3.    Unzip the downloaded repo folder
 4.    Drag and drop the repo folder onto the LÖVE application to begin playing!
 <br>
-<br>
 
 ### Installation On Terminal
 ```
@@ -21,7 +20,9 @@ git clone https://github.com/findingfocus/weather.git
 cd weather
 love .
 ```
-Set alias to love on Mac
+#### Set alias to love on Mac
 ```
 alias love="/Applications/love.app/Contents/MacOS/love"
 ```
+
+
